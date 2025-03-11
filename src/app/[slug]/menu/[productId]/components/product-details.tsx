@@ -3,11 +3,14 @@
 import { Prisma} from "@prisma/client";
 import {  ChefHatIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatCurrency } from "@/helpers/fortam-currency";
+
+import CartSheet from "../../components/cart-sheet";
+import { CartContext } from "../../contexts/cart";
 
 interface ProductDetailsProps{
    
@@ -22,6 +25,7 @@ interface ProductDetailsProps{
 }
 
 const ProductDetails = ({ product}: ProductDetailsProps) => {
+    const {toggleCart} = useContext(CartContext)
     const [quantity, setQuantity] = useState<number>(1)
     const handleDecreaseQuantity = () => {
         setQuantity((prev) => {
@@ -34,8 +38,13 @@ const ProductDetails = ({ product}: ProductDetailsProps) => {
     const handleIncreaseQuantity = () => {
         setQuantity((prev) => prev +1)
     }
+
+    const handleAddToCart = () => {
+        toggleCart();
+    }
     return ( 
-        <div className="relative z-50 rounded-t-3xl p-5 mt-[-1.5rem] flex-auto flex flex-col overflow-hidden">
+       <>
+         <div className="relative z-50 rounded-t-3xl p-5 mt-[-1.5rem] flex-auto flex flex-col overflow-hidden">
             <div className="flex-auto overflow-hidden">
                  {/* Restaurant */}
                 <div className="flex items-center gap-1.5 ">
@@ -105,11 +114,17 @@ const ProductDetails = ({ product}: ProductDetailsProps) => {
             </div>
                
 
-                <Button className="mt-6 w-full rounded-full">
+                <Button 
+                        className="mt-6 w-full rounded-full"
+                        onClick={handleAddToCart }>
                     Adicionar à sacola
                 </Button>
 
         </div>
+        
+        <CartSheet/>
+    
+       </>
      );
 }
  
