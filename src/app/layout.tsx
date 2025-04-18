@@ -2,6 +2,7 @@ import "./globals.css";
 
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { Toaster } from "sonner";
 
 import { CartProvider } from "./[slug]/menu/contexts/cart";
 
@@ -28,6 +29,8 @@ export default function RootLayout({
         <CartProvider>
           {children}
         </CartProvider>
+
+        <Toaster />
         
       </body>
     </html>
