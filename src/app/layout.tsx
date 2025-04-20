@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.className} antialiased`}
+        suppressHydrationWarning={true} className={`${poppins.className} antialiased`}
       >
         <CartProvider>
           {children}
